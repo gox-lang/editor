@@ -2,7 +2,7 @@
   "name": "gox-tools",
   "displayName": "GOX Tools",
   "description": "Official editor tools for the GOX language.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "publisher": "gox-lang",
   "icon": "images/icon.png",
   "license": "MIT",
@@ -157,10 +157,11 @@
     "test:hints": "node scripts/test-visibility-hints.mjs",
     "test:import-strings": "node scripts/test-import-string-suggestions.mjs",
     "test:lsp": "node scripts/test-language-server.mjs",
-    "test": "npm run check && npm run test:textmate && npm run test:hints && npm run test:lsp && npm run test:import-strings && npm run test:install",
+    "test": "npm run check && npm run test:textmate && npm run test:hints && npm run test:lsp && npm run test:import-strings && npm run test:install && npm run test:path",
     "build": "node scripts/build.mjs",
     "vscode:prepublish": "npm test && npm run build",
-    "test:install": "node scripts/test-server-install.mjs"
+    "test:install": "node scripts/test-server-install.mjs",
+    "test:path": "node scripts/test-user-path.mjs"
   },
   "devDependencies": {
     "@vscode/vsce": "3.9.2",

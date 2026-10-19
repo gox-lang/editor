@@ -58,9 +58,9 @@ Select either theme using **Preferences: Color Theme** in the Command Palette. Y
 
 ## GOX installation and updates
 
-GOX Tools uses the installation specified in its settings or looks for `gox` in `PATH`. If it cannot find an installation, it downloads the latest stable [GOX Server release](https://github.com/gox-lang/server/releases) for your system and verifies its SHA-256 checksum and executable version before using it.
+GOX Tools looks for `gox` in `PATH` to provide the CLI. A custom `gox.languageServer.path` selects the executable used by the editor independently; it does not prevent installation of the official CLI when it is missing. If it cannot find an installation, it downloads the latest stable [GOX Server release](https://github.com/gox-lang/server/releases) for your system and verifies its SHA-256 checksum and executable version before using it.
 
-Automatic installations are stored in a user directory and do not require administrator permissions. The extension adds the executable to `PATH` for new VS Code integrated terminals; it does not modify your shell configuration. GOX remains installed if you uninstall the extension.
+Automatic installations are stored in a user directory and do not require administrator permissions. The extension configures your user PATH so `gox` is available in new terminals both inside and outside VS Code. On Linux and macOS, it adds a marked, repeatable block to Bash and Zsh startup files and a Fish configuration file. On Windows, it updates the user PATH; restart your terminal application to pick up the change. GOX remains installed if you uninstall the extension.
 
 The language server prepares the Go version it needs. You do not need to install or configure Go manually to use it.
 

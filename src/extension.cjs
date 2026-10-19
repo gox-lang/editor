@@ -5,6 +5,7 @@ const { LanguageClientLifecycle } = require("./language-client-lifecycle.cjs")
 
 const { resolveServer } = require("./server-install.cjs")
 const path = require("node:path")
+const { configureManagedPath } = require("./user-path.cjs")
 
 let installationController
 let prepareServer
@@ -54,6 +55,7 @@ async function activate(context) {
   context.subscriptions.push(provider)
 
   let executablePath
+  let cliPath
   prepareServer = async () => {
     executablePath = await vscode.window.withProgress({
       location: vscode.ProgressLocation.Notification,
@@ -63,18 +65,27 @@ async function activate(context) {
       installationController = controller
       const subscription = token.onCancellationRequested(() => controller.abort())
       try {
-        return await resolveServer(languageServerCommand(vscode), {
+        cliPath = await resolveServer("gox", {
           signal: controller.signal,
           report: message => progress.report({ message })
         })
+        try {
+          if (await configureManagedPath(cliPath)) {
+            void vscode.window.showInformationMessage("GOX is installed and available in new terminals. On Windows, restart your terminal application to refresh PATH.")
+          }
+        } catch (error) {
+          void vscode.window.showWarningMessage(`GOX is installed, but user PATH setup failed: ${error.message}. Restart the language server to retry.`)
+        }
+        const configured = languageServerCommand(vscode)
+        return configured === "gox" ? cliPath : await resolveServer(configured, { signal: controller.signal })
       } finally {
         subscription.dispose()
         if (installationController === controller) installationController = undefined
       }
     })
     context.environmentVariableCollection.clear()
-    if (path.isAbsolute(executablePath)) {
-      context.environmentVariableCollection.prepend("PATH", path.dirname(executablePath) + path.delimiter)
+    if (path.isAbsolute(cliPath)) {
+      context.environmentVariableCollection.prepend("PATH", path.dirname(cliPath) + path.delimiter)
     }
   }
 

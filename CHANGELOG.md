@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.1.6
+
+- Make managed GOX installations available in external terminals through persistent user PATH configuration.
+- Support Bash, Zsh, Fish, and Windows user PATH without administrator permissions.
+- Install the official CLI independently of a custom language-server executable.
+- Report PATH setup failures without preventing the language server from starting.
+
 ## 0.1.5
 
 - Rewrite the README in English with installation, features, settings, and update guidance for users.
