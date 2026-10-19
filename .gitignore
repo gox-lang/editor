@@ -1,0 +1,29 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+*.vsix
+*.log
+
+# Local development workspace and generated GOX files
+/tests/workspace/
+.build/
+.toolchain/
+
+# Local configuration and agent instructions
+AGENTS.md
+.codex/
+.agents/
+.idea/
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Operating system and editor temporary files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

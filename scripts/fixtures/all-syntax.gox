@@ -1,0 +1,37 @@
+module syntax
+
+client Menu react {
+    src: "menu/menu.jsx"
+    dev: true
+}
+
+func GET() gox.Page {
+    width := 10
+    users := []string{"George", "Milo"}
+
+    return <>
+        <html>
+            <head>
+                <title :spread={{ props }}>GOX &amp; TextMate</title>
+                <style>
+                    .card {
+                        color: red;
+                        width: {{ width }}px;
+                    }
+                </style>
+                <script>
+                    console.log({{ users }})
+                </script>
+                <!-- HTML comment -->
+            </head>
+            <body>
+                <:for index user range={{ users }}>
+                    <&Card name={{ user }} disabled />
+                </:for>
+                <:if condition={{ len(users) > 0 }}>
+                    <@Menu hydrate="idle" />
+                </:if>
+            </body>
+        </html>
+    </>
+}

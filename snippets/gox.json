@@ -1,0 +1,129 @@
+{
+  "GOX Page": {
+    "prefix": "gox-page",
+    "body": [
+      "func GET(ctx *gox.Context) gox.Page {",
+      "\treturn <html>",
+      "\t\t<head>",
+      "\t\t\t<title>${1:Title}</title>",
+      "\t\t</head>",
+      "\t\t<body>",
+      "\t\t\t${0}",
+      "\t\t</body>",
+      "\t</html>",
+      "}"
+    ],
+    "description": "Create a GOX Page handler"
+  },
+  "Client declaration": {
+    "prefix": "gox-client",
+    "body": [
+      "client ${1:Menu} ${2|react,preact,solid,vue,svelte|} {",
+      "\tsrc: \"${3:menu/menu.jsx}\"",
+      "\tdev: ${4:false}",
+      "}"
+    ],
+    "description": "Declare a Client Component"
+  },
+  "GOX GET": {
+    "prefix": "gox-get",
+    "body": [
+      "func GET(ctx *gox.Context) gox.Page {",
+      "\treturn <p>${0}</p>",
+      "}"
+    ],
+    "description": "Declare a GOX GET handler"
+  },
+  "GOX POST": {
+    "prefix": "gox-post",
+    "body": [
+      "func POST(ctx *gox.Context) gox.Page {",
+      "\treturn <p>${0}</p>",
+      "}"
+    ],
+    "description": "Declare a GOX POST handler"
+  },
+  "GOX PUT": {
+    "prefix": "gox-put",
+    "body": [
+      "func PUT(ctx *gox.Context) gox.Page {",
+      "\treturn <p>${0}</p>",
+      "}"
+    ],
+    "description": "Declare a GOX PUT handler"
+  },
+  "GOX PATCH": {
+    "prefix": "gox-patch",
+    "body": [
+      "func PATCH(ctx *gox.Context) gox.Page {",
+      "\treturn <p>${0}</p>",
+      "}"
+    ],
+    "description": "Declare a GOX PATCH handler"
+  },
+  "GOX DELETE": {
+    "prefix": "gox-delete",
+    "body": [
+      "func DELETE(ctx *gox.Context) gox.Page {",
+      "\treturn <p>${0}</p>",
+      "}"
+    ],
+    "description": "Declare a GOX DELETE handler"
+  },
+  "GOX HEAD": {
+    "prefix": "gox-head",
+    "body": [
+      "func HEAD(ctx *gox.Context) gox.Page {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare a GOX HEAD handler without response content"
+  },
+  "GOX OPTIONS": {
+    "prefix": "gox-options",
+    "body": [
+      "func OPTIONS(ctx *gox.Context) gox.Page {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare a GOX OPTIONS handler without response content"
+  },
+  "GOX Action": {
+    "prefix": "gox-action",
+    "body": [
+      "func ${1:ActionName}(${2}) gox.Action {",
+      "\treturn ${0:nil}",
+      "}"
+    ],
+    "description": "Declare a GOX action"
+  },
+  "GOX Channel": {
+    "prefix": "gox-channel",
+    "body": [
+      "func ${1:Chat}(channel *gox.Channel) gox.Channel {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare a GOX channel handler"
+  },
+  "GOX WebSocket": {
+    "prefix": "gox-websocket",
+    "body": [
+      "func ${1:Index}(socket *gox.Socket) gox.WebSocket {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Declare a GOX WebSocket handler"
+  },
+  "GOX Component": {
+    "prefix": "gox-component",
+    "body": [
+      "func ${1:ComponentName}(${2}) gox.Component {",
+      "\treturn <div>",
+      "\t\t$0",
+      "\t</div>",
+      "}"
+    ],
+    "description": "Declare a GOX server component"
+  }
+}

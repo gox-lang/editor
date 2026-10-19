@@ -1,0 +1,191 @@
+{
+  "name": "gox-tools",
+  "displayName": "GOX Tools",
+  "description": "Official editor tools for the GOX language.",
+  "version": "0.1.5",
+  "publisher": "gox-lang",
+  "icon": "images/icon.png",
+  "license": "MIT",
+  "main": "./dist/extension.cjs",
+  "activationEvents": [
+    "onStartupFinished",
+    "onLanguage:gox"
+  ],
+  "engines": {
+    "vscode": "^1.91.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "gox",
+    "go",
+    "html",
+    "textmate"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "contributes": {
+    "configurationDefaults": {
+      "[gox]": {
+        "editor.linkedEditing": true,
+        "editor.quickSuggestions": {
+          "other": "on",
+          "comments": "off",
+          "strings": "on"
+        },
+        "editor.formatOnType": true,
+        "editor.bracketPairColorization.enabled": false,
+        "editor.inlayHints.enabled": "on",
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        }
+      }
+    },
+    "configuration": {
+      "title": "GOX Tools",
+      "properties": {
+        "gox.inlayHints.visibility.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Show exported, public, and private visibility hints in GOX declarations."
+        },
+        "gox.inlayHints.clientTemplate.enabled": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Show the template form of GOX client declarations."
+        },
+        "gox.languageServer.path": {
+          "type": "string",
+          "default": "gox",
+          "scope": "machine-overridable",
+          "description": "Path to the GOX executable used to start `gox ls`."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "gox.restartLanguageServer",
+        "title": "Restart Language Server",
+        "category": "GOX"
+      }
+    ],
+    "languages": [
+      {
+        "id": "gox",
+        "aliases": [
+          "GOX",
+          "gox"
+        ],
+        "extensions": [
+          ".gox"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/file-icon.svg",
+          "dark": "./images/file-icon.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gox",
+        "scopeName": "source.gox",
+        "path": "./syntaxes/gox.tmLanguage.json"
+      }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "gox",
+        "scopes": {
+          "goxModuleKeyword": [
+            "keyword.control"
+          ],
+          "goxClientKeyword": [
+            "storage.type"
+          ],
+          "goxClientFramework": [
+            "entity.name.type"
+          ],
+          "goxTag": [
+            "entity.name.tag"
+          ],
+          "goxAttribute": [
+            "entity.other.attribute-name"
+          ],
+          "goxAttributeValue": [
+            "string.quoted"
+          ],
+          "goxDirective": [
+            "keyword.control"
+          ],
+          "goxComponent": [
+            "entity.name.function"
+          ],
+          "goxClient": [
+            "entity.name.class"
+          ]
+        }
+      }
+    ],
+    "themes": [
+      {
+        "label": "GOX Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/gox-dark-color-theme.json"
+      },
+      {
+        "label": "GOX Light",
+        "uiTheme": "vs",
+        "path": "./themes/gox-light-color-theme.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "gox",
+        "path": "./snippets/gox.json"
+      }
+    ]
+  },
+  "scripts": {
+    "package": "vsce package",
+    "check": "node scripts/validate.mjs",
+    "test:textmate": "node scripts/test-textmate.mjs && node scripts/test-string-highlighting.mjs",
+    "test:hints": "node scripts/test-visibility-hints.mjs",
+    "test:import-strings": "node scripts/test-import-string-suggestions.mjs",
+    "test:lsp": "node scripts/test-language-server.mjs",
+    "test": "npm run check && npm run test:textmate && npm run test:hints && npm run test:lsp && npm run test:import-strings && npm run test:install",
+    "build": "node scripts/build.mjs",
+    "vscode:prepublish": "npm test && npm run build",
+    "test:install": "node scripts/test-server-install.mjs"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "3.9.2",
+    "esbuild": "0.28.2",
+    "vscode-oniguruma": "^2.0.1",
+    "vscode-textmate": "^9.3.2"
+  },
+  "dependencies": {
+    "fflate": "0.8.3",
+    "tar-stream": "3.2.2",
+    "vscode-languageclient": "10.1.0"
+  },
+  "homepage": "https://gox-lang.dev",
+  "bugs": {
+    "url": "https://github.com/gox-lang/editor/issues"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": false,
+      "description": "GOX Tools starts the GOX language server for the workspace."
+    },
+    "virtualWorkspaces": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gox-lang/editor.git"
+  }
+}
